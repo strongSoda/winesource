@@ -13,7 +13,6 @@ const CounterWrapper = styled.div`
 `;
 
 const CounterButton = styled.button`
-  background: ${(props) => props.theme.primaryColor};
   color: black;
   outline: none;
   border: 0px;

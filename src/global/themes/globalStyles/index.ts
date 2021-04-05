@@ -2,16 +2,19 @@ import { createGlobalStyle, css } from 'styled-components';
 
 const globalStyle = createGlobalStyle`
 ${({ theme }) => css`
-  #root {
+  #root,
+  html,
+  body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  body {
+    width: 100vw;
+    height: 100vh;
     background: ${theme.backgroundColor};
+    font-family: 'Poppins', sans-serif;
   }
-  html {
-    font-size: '100%';
+  a {
+    color: #8a1f1a;
   }
 `}
 `;
