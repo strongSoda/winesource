@@ -63,15 +63,7 @@ const Signup: React.FC = (props: ISignupProps) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    
-                    const requestOptions = {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer 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' },
-                        body: JSON.stringify({ "list_ids":["0a3eaa09-3800-4e57-9761-8481408cf494"], "contacts": [{"email": values.email, "last_name": values.lname, "first_name": values.fname}]})
-                    };
-                    fetch('https://api.sendgrid.com/v3/marketing/contacts', requestOptions)
-                    
-                    setUser({...data, "loggedin": true})
+                    setUser(JSON.stringify({'token': data.auth_token, 'user': data.user, "loggedin": true}))
                     console.log(data);
                 })
                 .catch(err => console.log(err))
