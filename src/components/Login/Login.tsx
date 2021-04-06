@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { SignupWrapper } from './Signup.styles';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
 import { Redirect, useHistory } from 'react-router';
 import * as Yup from 'yup';
 import "yup-phone";
 import API from 'global/constants/api';
 import useLocalStorage from 'react-hook-uselocalstorage'
-import { registerUser } from 'features/counter/userSlice';
+import { loginUser, registerUser } from 'features/counter/userSlice';
 import isUserAuthenticated from 'global/constants/isUserAuthenticated';
 
-declare interface ISignupProps {}
+import { LoginWrapper } from './Login.styles';
 
-const Signup: React.FC = (props: ISignupProps) => {
-  const [Error, setCustomError] = useState('')
+declare interface ILoginProps {}
+
+const Login: React.FC = (props: ILoginProps) => {
+    const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
   const token =useAppSelector(state => state.user.token)
   const [loading, setLoading] = useState(false)
@@ -29,32 +30,32 @@ const Signup: React.FC = (props: ISignupProps) => {
             phone: '',
         },
         validationSchema: Yup.object({
-          username: Yup.string()
-              .max(50, 'Must be 50 characters or less')
-              .required('Required'),  
-          fname: Yup.string()
-              .max(50, 'Must be 50 characters or less')
-              .required('Required'),
-          lname: Yup.string()
-              .max(50, 'Must be 50 characters or less')
-              .required('Required'),
+          // username: Yup.string()
+          //     .max(50, 'Must be 50 characters or less')
+          //     .required('Required'),  
+          // fname: Yup.string()
+          //     .max(50, 'Must be 50 characters or less')
+          //     .required('Required'),
+          // lname: Yup.string()
+          //     .max(50, 'Must be 50 characters or less')
+          //     .required('Required'),
           email: Yup.string()
               .email('Invalid email address')
               .required('Required'),
           password: Yup.string()
               .min(6, 'Must be 6 characters or more')
               .required('Required'),
-          dob: Yup.date()
-              .max(new Date(), 'Invalid Birth Date')
-              .required('Required'),
-          phone: Yup.string()
-            .phone('US', true, 'Not a valid US contact')
-            .required()
+          // dob: Yup.date()
+          //     .max(new Date(), 'Invalid Birth Date')
+          //     .required('Required'),
+          // phone: Yup.string()
+          //   .phone('US', true, 'Not a valid US contact')
+          //   .required()
         }),
 
         onSubmit: async values => {
           setLoading(true)
-          const response = await dispatch(registerUser(values))
+          const response = await dispatch(loginUser(values))
           console.log('heyoooooooooooooooo',response);
           if (response.payload.status === 'FAILURE') {
             setCustomError(response.payload.message)
@@ -64,7 +65,7 @@ const Signup: React.FC = (props: ISignupProps) => {
     });
   
   return (
-    <SignupWrapper data-testid="Signup">
+    <LoginWrapper data-testid="Signup">
         {!token ? 
       <>
 
@@ -74,14 +75,12 @@ const Signup: React.FC = (props: ISignupProps) => {
           <a href="/signin"><button className="login_btn">log in</button></a>
         </header>
         <form onSubmit={formik.handleSubmit}>
-        <h2>Create an account</h2>
-          {
+        <h2>Login</h2>
+          {/* {
               formik.touched.username && formik.errors.username ? (
                   <div>{formik.errors.username}</div>
               ) : null
           }
-          <div>{Error}</div>
-
           <input
             type="text"
             name="username"
@@ -141,8 +140,10 @@ const Signup: React.FC = (props: ISignupProps) => {
               value={formik.values.dob}
               placeholder="Date of Birth" />
           
-          <br />
+          <br /> */}
           
+          <div>{Error}</div>
+              
           {
             formik.touched.email && formik.errors.email ? (
               <div>{formik.errors.email}</div>
@@ -159,7 +160,8 @@ const Signup: React.FC = (props: ISignupProps) => {
               placeholder="Email Address" />
           
           <br />
-          
+{/*           
+                 
           {
             formik.touched.phone && formik.errors.phone ? (
               <div>{formik.errors.phone}</div>
@@ -175,7 +177,22 @@ const Signup: React.FC = (props: ISignupProps) => {
               value={formik.values.phone}
             placeholder="Phone Number" />
           
-          <br />
+          <br />   {
+            formik.touched.phone && formik.errors.phone ? (
+              <div>{formik.errors.phone}</div>
+            ) : null
+          }
+
+          <input
+              type="tel"
+              name="phone"
+              id="phone"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+            placeholder="Phone Number" />
+          
+          <br /> */}
 
           {
             formik.touched.password && formik.errors.password ? (
@@ -191,8 +208,8 @@ const Signup: React.FC = (props: ISignupProps) => {
               onBlur={formik.handleBlur}
               value={formik.values.password}
               placeholder="Password" /><br/>
-          <input type="submit" value={loading ? "loading..." : "Sign Up"} />
-        <p>Already have an account? <a href="/signin">Sign In!</a></p>
+          <input type="submit" value={loading ? "loading..." : "Log In"} />
+        <p>Don't have an account? <a href="/signup">Sign Up!</a></p>
         </form >
       </div>
       <div className="banner">
@@ -203,8 +220,8 @@ const Signup: React.FC = (props: ISignupProps) => {
         : 
         <Redirect to='/discover'/>
         }
-    </SignupWrapper>
+    </LoginWrapper>
   )
-};
+}
 
-export default Signup;
+export default Login;

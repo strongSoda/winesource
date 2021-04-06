@@ -7,17 +7,20 @@ import AppRouter from 'components/AppRouter';
 import ThemeProvider from 'components/ThemeProvider';
 import GlobalStyles from 'global/themes/globalStyles';
 import { store } from 'store';
+import { HelmetProvider } from 'react-helmet-async';
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <GlobalStyles />
-      <Provider store={store}>
-        <AppRouter />
-      </Provider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <GlobalStyles />
+        <Provider store={store}>
+          <AppRouter />
+        </Provider>
+      </ThemeProvider>
+    </HelmetProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
