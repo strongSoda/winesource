@@ -21,12 +21,12 @@ const Login: React.FC = (props: ILoginProps) => {
   const formik = useFormik({
         initialValues: {
             email: '',
-            fname: '',
-            lname: '',
+            // fname: '',
+            // lname: '',
             password: '',
-            username: '',
-            dob: '',
-            phone: '',
+            // username: '',
+            // dob: '',
+            // phone: '',
         },
         validationSchema: Yup.object({
           // username: Yup.string()

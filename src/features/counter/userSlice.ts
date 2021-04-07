@@ -5,7 +5,6 @@ import type { AppThunk, RootState } from 'store/';
 import API from 'global/constants/api';
 import ENDPOINTS from 'global/constants/endpoints';
 import METHODS from 'global/constants/restMethods';
-import { useAppSelector } from 'hooks/storeHooks';
 
 interface registerProps {
     fname: string,
@@ -66,20 +65,22 @@ export const loginUser = createAsyncThunk(
 // async thunk
 export const logoutUser = createAsyncThunk(
   'currentUser/logoutUser',
-  async (dummy, thunkAPI) => {
+  async (dummy, {dispatch, getState}) => {    
+    
     const response = await fetch(API + ENDPOINTS.LOGOUT, {
         method: METHODS.POST,
         headers: {
-            Authorization: 'Bearer ' + useAppSelector(state => state.user.loggedin)
+          // @ts-ignore
+          Authorization: 'Bearer ' + getState().user.token
         }
     })
     const data = await response.json()
     
     console.log(data);
     
-    thunkAPI.dispatch(setUser(null))
-    thunkAPI.dispatch(setToken(''))
-    thunkAPI.dispatch(logout())
+    dispatch(setUser(null))
+    dispatch(setToken(''))
+    dispatch(logout())
   }
 )
 
@@ -113,7 +114,7 @@ interface UserState {
 const initialState: UserState = {
     profile: null,
     loggedin: false,
-    token: localStorage.getItem('token')
+    token: ''
 };
 
 // slice
@@ -128,8 +129,6 @@ export const userSlice = createSlice({
       // immutable state based off those changes
       
       state.loggedin = true;
-      state.token = localStorage.getItem('token');
-      console.log(localStorage.getItem('token'), 'here', state.token);
     },
       logout: (state) => {
         state.loggedin = false;
@@ -140,7 +139,9 @@ export const userSlice = createSlice({
       
         state.profile = action.payload;
     },
-    setToken: (state, action: PayloadAction<string|null>) => {
+    setToken: (state, action: PayloadAction<string | null>) => {
+      console.log(action.payload);
+      
       state.token = action.payload
     },
     },
