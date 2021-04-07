@@ -6,8 +6,9 @@ import { Provider } from 'react-redux';
 import AppRouter from 'components/AppRouter';
 import ThemeProvider from 'components/ThemeProvider';
 import GlobalStyles from 'global/themes/globalStyles';
-import { store } from 'store';
+import { store, persistor } from 'store';
 import { HelmetProvider } from 'react-helmet-async';
+import { PersistGate } from 'redux-persist/integration/react'
 
 import reportWebVitals from './reportWebVitals';
 
@@ -17,7 +18,9 @@ ReactDOM.render(
       <ThemeProvider>
         <GlobalStyles />
         <Provider store={store}>
-          <AppRouter />
+          <PersistGate loading={null} persistor={persistor}>
+            <AppRouter />
+          </PersistGate>
         </Provider>
       </ThemeProvider>
     </HelmetProvider>

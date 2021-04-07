@@ -8,14 +8,13 @@ import "yup-phone";
 import API from 'global/constants/api';
 import useLocalStorage from 'react-hook-uselocalstorage'
 import { registerUser } from 'features/counter/userSlice';
-import isUserAuthenticated from 'global/constants/isUserAuthenticated';
 
 declare interface ISignupProps {}
 
 const Signup: React.FC = (props: ISignupProps) => {
   const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
-  const token =useAppSelector(state => state.user.token)
+  const loggedin =useAppSelector(state => state.user.loggedin)
   const [loading, setLoading] = useState(false)
 
   const formik = useFormik({
@@ -65,7 +64,7 @@ const Signup: React.FC = (props: ISignupProps) => {
   
   return (
     <SignupWrapper data-testid="Signup">
-        {!token ? 
+        {!loggedin ? 
       <>
 
       <div className="form__wrapper">

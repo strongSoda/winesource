@@ -5,22 +5,17 @@ import { DiscoverWrapper } from './Discover.styles';
 import useLocalStorage from 'react-hook-uselocalstorage'
 import { Redirect, useHistory } from 'react-router';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
-import { logoutUser, getUser } from 'features/counter/userSlice';
-import isUserAuthenticated from 'global/constants/isUserAuthenticated';
+import { logoutUser } from 'features/counter/userSlice';
 
 declare interface IDiscoverProps {}
 
 const Discover: React.FC = (props: IDiscoverProps) => {  
   const dispatch = useAppDispatch()
-  let token =useAppSelector(state => state.user.token)
-  
-  useEffect(() => { 
-      dispatch(getUser())
-  }, [])
+  let loggedin =useAppSelector(state => state.user.loggedin)
   
   return (
     <DiscoverWrapper data-testid="Discover">
-      {token  ?
+      {loggedin  ?
       <>
         <span>Discover Component</span>
         <button onClick={() => dispatch(logoutUser())}>Logout</button>

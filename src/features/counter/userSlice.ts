@@ -5,6 +5,7 @@ import type { AppThunk, RootState } from 'store/';
 import API from 'global/constants/api';
 import ENDPOINTS from 'global/constants/endpoints';
 import METHODS from 'global/constants/restMethods';
+import { useAppSelector } from 'hooks/storeHooks';
 
 interface registerProps {
     fname: string,
@@ -37,17 +38,12 @@ export const registerUser = createAsyncThunk(
 
     if(data.status==='FAILURE') return data
     
-    localStorage.setItem('token', data.auth_token)
     thunkAPI.dispatch(setUser(data.user))
+    thunkAPI.dispatch(setToken(data.auth_token))
     thunkAPI.dispatch(login())
-    thunkAPI.dispatch(setToken())
   }
 )
 
-interface responseT {
-  status: string,
-  msg: string
-}
 // async thunk
 export const loginUser = createAsyncThunk(
   'currentUser/loginUser',
@@ -61,10 +57,9 @@ export const loginUser = createAsyncThunk(
     
     if(data.status==='FAILURE') return data
 
-    localStorage.setItem('token', data.auth_token)
     thunkAPI.dispatch(setUser(data.user))
+    thunkAPI.dispatch(setToken(data.auth_token))
     thunkAPI.dispatch(login())
-    thunkAPI.dispatch(setToken())
   }
 )
 
@@ -75,39 +70,39 @@ export const logoutUser = createAsyncThunk(
     const response = await fetch(API + ENDPOINTS.LOGOUT, {
         method: METHODS.POST,
         headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+            Authorization: 'Bearer ' + useAppSelector(state => state.user.loggedin)
         }
     })
     const data = await response.json()
     
     console.log(data);
     
+    thunkAPI.dispatch(setUser(null))
+    thunkAPI.dispatch(setToken(''))
     thunkAPI.dispatch(logout())
-    localStorage.removeItem('token')
-    thunkAPI.dispatch(resetToken())
   }
 )
 
-export const getUser = createAsyncThunk(
-  'currentUser/getUser',
-  async (dummy, thunkAPI) => {
-    console.log(thunkAPI);
+// export const getUser = createAsyncThunk(
+//   'currentUser/getUser',
+//   async (dummy, thunkAPI) => {
+//     console.log(thunkAPI);
     
-    const response = await fetch(API + ENDPOINTS.USER, {
-        method: METHODS.GET,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+//     const response = await fetch(API + ENDPOINTS.USER, {
+//         method: METHODS.GET,
+//         headers: {
+//             Authorization: 'Bearer ' + localStorage.getItem('token')
+//         }
+//     })
 
-    const data = await response.json()
+//     const data = await response.json()
     
-    console.log('pppppppppppppppp',data.user);
-    thunkAPI.dispatch(setUser(data.user))
-    thunkAPI.dispatch(login())
-    thunkAPI.dispatch(setToken())
-  }
-)
+//     console.log('pppppppppppppppp',data.user);
+//     thunkAPI.dispatch(setUser(data.user))
+//     thunkAPI.dispatch(login())
+//     thunkAPI.dispatch(setToken())
+//   }
+// )
 
 interface UserState {
     profile: any,
@@ -137,34 +132,23 @@ export const userSlice = createSlice({
       console.log(localStorage.getItem('token'), 'here', state.token);
     },
       logout: (state) => {
-      state.profile = null;
         state.loggedin = false;
-        state.token = null;
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setUser: (state, action: PayloadAction<UserState>) => {
+    setUser: (state, action: PayloadAction<UserState|null>) => {
       console.log(action.payload);
       
         state.profile = action.payload;
     },
-    setToken: (state) => {
-      state.token = localStorage.getItem('token')
+    setToken: (state, action: PayloadAction<string|null>) => {
+      state.token = action.payload
     },
-    resetToken: (state) => {
-      state.token = null;
-    }
     },
     // extraReducers: (builder) => {
     // }
 });
 
-export const { login, logout, setUser, setToken, resetToken } = userSlice.actions;
-
-const PROCESSES = {
-    LOGIN: 'LOGIN',
-    LOGOUT: 'LOGOUT',
-    REGISTER: 'REGISTER'
-}
+export const { login, logout, setUser, setToken } = userSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
