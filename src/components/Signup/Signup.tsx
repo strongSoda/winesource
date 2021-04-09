@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { SignupWrapper } from './Signup.styles';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
 import { Redirect, useHistory } from 'react-router';
 import * as Yup from 'yup';
 import "yup-phone";
-import API from 'global/constants/api';
-import useLocalStorage from 'react-hook-uselocalstorage'
 import { registerUser } from 'features/counter/userSlice';
 
 declare interface ISignupProps {}

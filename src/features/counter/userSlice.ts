@@ -13,7 +13,8 @@ interface registerProps {
     dob: string,
     phone: string,
     username: string,
-    password: string
+    password: string,
+    admin?: boolean
 }
 
 interface loginProps {

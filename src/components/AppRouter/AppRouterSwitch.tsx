@@ -9,6 +9,8 @@ import NotFoundPage from 'pages/notfound';
 import Register from 'pages/signup';
 import Discovery from 'pages/discover';
 import Signin from 'pages/signin';
+import AdminSignup from 'components/AdminSignup';
+import AdminLogin from 'components/AdminLogin';
 
 const AppRouterSwitch: React.FC = () => {
   usePageViews();
@@ -18,6 +20,8 @@ const AppRouterSwitch: React.FC = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/counter" component={Counter} />
         <Route exact path="/signup" component={Register} />
+        <Route exact path="/admin/signup" component={AdminSignup} />
+        <Route exact path="/admin/signin" component={AdminLogin} />
         <Route exact path="/signin" component={Signin} />
         <Route exact path="/discover" component={Discovery} />
         <Route path="/404" component={NotFoundPage} />

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
+import { AdminSignupWrapper } from './AdminSignup.styles';
+
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
 import { Redirect, useHistory } from 'react-router';
 import * as Yup from 'yup';
 import "yup-phone";
-import API from 'global/constants/api';
-import useLocalStorage from 'react-hook-uselocalstorage'
-import { loginUser, registerUser } from 'features/counter/userSlice';
+import { registerUser } from 'features/counter/userSlice';
 
-import { LoginWrapper } from './Login.styles';
 
-declare interface ILoginProps {}
+declare interface IAdminSignupProps {}
 
-const Login: React.FC = (props: ILoginProps) => {
+const AdminSignup: React.FC = (props: IAdminSignupProps) => {
     const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
   const loggedin =useAppSelector(state => state.user.loggedin)
@@ -21,40 +21,41 @@ const Login: React.FC = (props: ILoginProps) => {
   const formik = useFormik({
         initialValues: {
             email: '',
-            // fname: '',
-            // lname: '',
+            fname: '',
+            lname: '',
             password: '',
-            // username: '',
-            // dob: '',
-            // phone: '',
+            username: '',
+            dob: '',
+            phone: '',
+            is_admin: true
         },
         validationSchema: Yup.object({
-          // username: Yup.string()
-          //     .max(50, 'Must be 50 characters or less')
-          //     .required('Required'),  
-          // fname: Yup.string()
-          //     .max(50, 'Must be 50 characters or less')
-          //     .required('Required'),
-          // lname: Yup.string()
-          //     .max(50, 'Must be 50 characters or less')
-          //     .required('Required'),
+          username: Yup.string()
+              .max(50, 'Must be 50 characters or less')
+              .required('Required'),  
+          fname: Yup.string()
+              .max(50, 'Must be 50 characters or less')
+              .required('Required'),
+          lname: Yup.string()
+              .max(50, 'Must be 50 characters or less')
+              .required('Required'),
           email: Yup.string()
               .email('Invalid email address')
               .required('Required'),
           password: Yup.string()
               .min(6, 'Must be 6 characters or more')
               .required('Required'),
-          // dob: Yup.date()
-          //     .max(new Date(), 'Invalid Birth Date')
-          //     .required('Required'),
-          // phone: Yup.string()
-          //   .phone('US', true, 'Not a valid US contact')
-          //   .required()
+          dob: Yup.date()
+              .max(new Date(), 'Invalid Birth Date')
+              .required('Required'),
+          phone: Yup.string()
+            .phone('US', true, 'Not a valid US contact')
+            .required()
         }),
 
         onSubmit: async values => {
           setLoading(true)
-          const response = await dispatch(loginUser(values))
+          const response = await dispatch(registerUser(values))
           console.log('heyoooooooooooooooo',response);
           if (response.payload.status === 'FAILURE') {
             setCustomError(response.payload.message)
@@ -64,22 +65,24 @@ const Login: React.FC = (props: ILoginProps) => {
     });
   
   return (
-    <LoginWrapper data-testid="Signup">
+  <AdminSignupWrapper data-testid="AdminSignup">
         {!loggedin ? 
       <>
 
       <div className="form__wrapper">
         <header>
           <h3 className="brand">wine source</h3>
-          <a href="/signup"><button className="login_btn">sign up</button></a>
+          <a href="/signin"><button className="login_btn">log in</button></a>
         </header>
         <form onSubmit={formik.handleSubmit}>
-        <h2>Login</h2>
-          {/* {
+        <h2>Create an account</h2>
+          {
               formik.touched.username && formik.errors.username ? (
                   <div>{formik.errors.username}</div>
               ) : null
           }
+          <div>{Error}</div>
+
           <input
             type="text"
             name="username"
@@ -139,10 +142,8 @@ const Login: React.FC = (props: ILoginProps) => {
               value={formik.values.dob}
               placeholder="Date of Birth" />
           
-          <br /> */}
+          <br />
           
-          <div>{Error}</div>
-              
           {
             formik.touched.email && formik.errors.email ? (
               <div>{formik.errors.email}</div>
@@ -159,8 +160,7 @@ const Login: React.FC = (props: ILoginProps) => {
               placeholder="Email Address" />
           
           <br />
-{/*           
-                 
+          
           {
             formik.touched.phone && formik.errors.phone ? (
               <div>{formik.errors.phone}</div>
@@ -176,22 +176,7 @@ const Login: React.FC = (props: ILoginProps) => {
               value={formik.values.phone}
             placeholder="Phone Number" />
           
-          <br />   {
-            formik.touched.phone && formik.errors.phone ? (
-              <div>{formik.errors.phone}</div>
-            ) : null
-          }
-
-          <input
-              type="tel"
-              name="phone"
-              id="phone"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-            placeholder="Phone Number" />
-          
-          <br /> */}
+          <br />
 
           {
             formik.touched.password && formik.errors.password ? (
@@ -207,8 +192,8 @@ const Login: React.FC = (props: ILoginProps) => {
               onBlur={formik.handleBlur}
               value={formik.values.password}
               placeholder="Password" /><br/>
-          <input type="submit" value={loading ? "loading..." : "Log In"} />
-        <p>Don't have an account? <a href="/signup">Sign Up!</a></p>
+          <input type="submit" value={loading ? "loading..." : "Sign Up"} />
+        <p>Already have an account? <a href="/signin">Sign In!</a></p>
         </form >
       </div>
       <div className="banner">
@@ -219,8 +204,7 @@ const Login: React.FC = (props: ILoginProps) => {
         : 
         <Redirect to='/discover'/>
         }
-    </LoginWrapper>
-  )
-}
+  </AdminSignupWrapper>
+)};
 
-export default Login;
+export default AdminSignup;
