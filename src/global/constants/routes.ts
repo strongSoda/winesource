@@ -1,21 +1,12 @@
-const ROUTES = [
-    {
-        "name": "REGISTER",
-        "link": "/signup",
-    },
-    {
-        "name": "LOGIN",
-        "link": "/signin",
-    },
-    {
-        "name": "ADMIN_SIGNUP",
-        "link": "/admin/signup"
-    },
-        {
-        "name": "ADMIN_LOGIN",
-        "link": "/admin/signin"
+const ROUTES = {
+        USER_SIGNUP: "/register",
+        USER_LOGIN: "/login",
+        ADMIN_SIGNUP: "/admin/register", 
+        ADMIN_LOGIN: "/admin/login",
+        DISCOVER: "/discover",
+        ADMIN_DASHBOARD: "/admin/dashboard",
+        PROFILE: "/profile",
+        VERIFY_OTP: "/otp/verify",
     }
-        
-]
 
 export default ROUTES
