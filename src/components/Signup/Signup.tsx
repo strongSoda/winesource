@@ -6,6 +6,7 @@ import { Redirect, useHistory } from 'react-router';
 import * as Yup from 'yup';
 import "yup-phone";
 import { registerUser } from 'features/counter/userSlice';
+import ROUTES from 'global/constants/routes';
 
 declare interface ISignupProps {}
 
@@ -68,7 +69,7 @@ const Signup: React.FC = (props: ISignupProps) => {
       <div className="form__wrapper">
         <header>
           <h3 className="brand">wine source</h3>
-          <a href="/signin"><button className="login_btn">log in</button></a>
+              <a href={ROUTES.USER_LOGIN}><button className="login_btn">log in</button></a>
         </header>
         <form onSubmit={formik.handleSubmit}>
         <h2>Create an account</h2>
@@ -198,7 +199,7 @@ const Signup: React.FC = (props: ISignupProps) => {
       </div>
         </>
         : 
-        <Redirect to='/discover'/>
+        <Redirect to={ROUTES.DISCOVER}/>
         }
     </SignupWrapper>
   )

@@ -6,6 +6,7 @@ import useLocalStorage from 'react-hook-uselocalstorage'
 import { Redirect, useHistory } from 'react-router';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
 import { logoutUser } from 'features/counter/userSlice';
+import ROUTES from 'global/constants/routes';
 
 declare interface IDiscoverProps {}
 
@@ -25,7 +26,7 @@ const Discover: React.FC = (props: IDiscoverProps) => {
           <p>Phone: {profile?.phone}</p>
       </>
         :
-      <Redirect to='/signin'/>
+        <Redirect to={ROUTES.USER_LOGIN}/>
       }
     </DiscoverWrapper>
   )

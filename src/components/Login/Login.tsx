@@ -9,6 +9,7 @@ import useLocalStorage from 'react-hook-uselocalstorage'
 import { loginUser, registerUser } from 'features/counter/userSlice';
 
 import { LoginWrapper } from './Login.styles';
+import ROUTES from 'global/constants/routes';
 
 declare interface ILoginProps {}
 
@@ -64,14 +65,14 @@ const Login: React.FC = (props: ILoginProps) => {
     });
   
   return (
-    <LoginWrapper data-testid="Signup">
+    <LoginWrapper data-testid="Login">
         {!loggedin ? 
       <>
 
       <div className="form__wrapper">
         <header>
           <h3 className="brand">wine source</h3>
-          <a href="/signup"><button className="login_btn">sign up</button></a>
+              <a href={ROUTES.USER_SIGNUP}><button className="login_btn">sign up</button></a>
         </header>
         <form onSubmit={formik.handleSubmit}>
         <h2>Login</h2>
@@ -217,7 +218,7 @@ const Login: React.FC = (props: ILoginProps) => {
       </div>
         </>
         : 
-        <Redirect to='/discover'/>
+        <Redirect to={ROUTES.DISCOVER}/>
         }
     </LoginWrapper>
   )

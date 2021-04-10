@@ -11,21 +11,22 @@ import Discovery from 'pages/discover';
 import Signin from 'pages/signin';
 import AdminSignup from 'components/AdminSignup';
 import AdminLogin from 'components/AdminLogin';
+import ROUTES from 'global/constants/routes';
 
 const AppRouterSwitch: React.FC = () => {
   usePageViews();
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path={ROUTES.HOME} component={Home} />
         <Route exact path="/counter" component={Counter} />
-        <Route exact path="/signup" component={Register} />
-        <Route exact path="/admin/signup" component={AdminSignup} />
-        <Route exact path="/admin/signin" component={AdminLogin} />
-        <Route exact path="/signin" component={Signin} />
-        <Route exact path="/discover" component={Discovery} />
-        <Route path="/404" component={NotFoundPage} />
-        <Redirect to="/404" />
+        <Route exact path={ROUTES.USER_SIGNUP} component={Register} />
+        <Route exact path={ROUTES.USER_LOGIN} component={Signin} />
+        <Route exact path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
+        <Route exact path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
+        <Route exact path={ROUTES.DISCOVER} component={Discovery} />
+        <Route path={ROUTES.NOT_FOUND} component={NotFoundPage} />
+        <Redirect to={ROUTES.NOT_FOUND} />
       </Switch>
     </div>
   );

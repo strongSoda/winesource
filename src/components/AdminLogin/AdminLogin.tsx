@@ -10,6 +10,7 @@ import { Redirect, useHistory } from 'react-router';
 import * as Yup from 'yup';
 import "yup-phone";
 import { loginUser, registerUser } from 'features/counter/userSlice';
+import ROUTES from 'global/constants/routes';
 
 
 const AdminLogin: React.FC = (props: IAdminLoginProps) => {
@@ -71,7 +72,7 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
           <div className="form__wrapper">
             <header>
               <h3 className="brand">wine source</h3>
-              <a href="/signup"><button className="login_btn">sign up</button></a>
+              <a href={ROUTES.ADMIN_SIGNUP}><button className="login_btn">sign up</button></a>
             </header>
             <form onSubmit={formik.handleSubmit}>
               <h2>Login</h2>
@@ -217,7 +218,7 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
           </div>
         </>
         :
-        <Redirect to='/discover' />
+        <Redirect to={ROUTES.ADMIN_DASHBOARD} />
       }
     </AdminLoginWrapper>
   )
