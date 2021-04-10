@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
-import { Redirect, useHistory } from 'react-router';
+import { useAppDispatch } from 'hooks/storeHooks';
 import * as Yup from 'yup';
 import "yup-phone";
-import API from 'global/constants/api';
-import useLocalStorage from 'react-hook-uselocalstorage'
-import { loginUser, registerUser } from 'features/counter/userSlice';
+import { loginUser } from 'features/counter/userSlice';
 
 import { LoginWrapper } from './Login.styles';
 import ROUTES from 'global/constants/routes';
+import { useHistory } from 'react-router';
 
 declare interface ILoginProps {}
 
 const Login: React.FC = (props: ILoginProps) => {
-    const [Error, setCustomError] = useState('')
+  const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
-  const loggedin =useAppSelector(state => state.user.loggedin)
   const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
   const formik = useFormik({
         initialValues: {
@@ -54,21 +52,25 @@ const Login: React.FC = (props: ILoginProps) => {
         }),
 
         onSubmit: async values => {
+          setCustomError('')
           setLoading(true)
-          const response = await dispatch(loginUser(values))
-          console.log('heyoooooooooooooooo',response);
-          if (response.payload.status === 'FAILURE') {
-            setCustomError(response.payload.message)
+          try {
+            const response = await dispatch(loginUser(values))
+            if (response?.payload?.status === 'FAILURE') {
+              setCustomError(response.payload.message)
+              setLoading(false)
+              return
+            }
+            history.push(ROUTES.DISCOVER)
+          }
+          catch (e) {
             setLoading(false)
           }
-        },
+      },
     });
   
   return (
     <LoginWrapper data-testid="Login">
-        {!loggedin ? 
-      <>
-
       <div className="form__wrapper">
         <header>
           <h3 className="brand">wine source</h3>
@@ -216,10 +218,6 @@ const Login: React.FC = (props: ILoginProps) => {
         <h1>Welcome to WineSource</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio, error ratione saepe provident fugit nam dolorum temporibus iusto, id quas quo assumenda minus facere perspiciatis quaerat minima modi cum!</p>
       </div>
-        </>
-        : 
-        <Redirect to={ROUTES.DISCOVER}/>
-        }
     </LoginWrapper>
   )
 }

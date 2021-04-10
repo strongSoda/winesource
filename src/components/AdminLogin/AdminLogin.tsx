@@ -5,18 +5,16 @@ import { AdminLoginWrapper } from './AdminLogin.styles';
 declare interface IAdminLoginProps {}
 
 import { useFormik } from 'formik';
-import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
-import { Redirect, useHistory } from 'react-router';
+import { useAppDispatch } from 'hooks/storeHooks';
 import * as Yup from 'yup';
 import "yup-phone";
-import { loginUser, registerUser } from 'features/counter/userSlice';
+import { loginUser } from 'features/counter/userSlice';
 import ROUTES from 'global/constants/routes';
 
 
 const AdminLogin: React.FC = (props: IAdminLoginProps) => {
   const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
-  const loggedin = useAppSelector(state => state.user.loggedin)
   const [loading, setLoading] = useState(false)
 
   const formik = useFormik({
@@ -66,9 +64,6 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
   
   return (
     <AdminLoginWrapper data-testid="AdminLogin">
-      {!loggedin ?
-        <>
-
           <div className="form__wrapper">
             <header>
               <h3 className="brand">wine source</h3>
@@ -216,10 +211,6 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
             <h1>Welcome to WineSource</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio, error ratione saepe provident fugit nam dolorum temporibus iusto, id quas quo assumenda minus facere perspiciatis quaerat minima modi cum!</p>
           </div>
-        </>
-        :
-        <Redirect to={ROUTES.ADMIN_DASHBOARD} />
-      }
     </AdminLoginWrapper>
   )
 };

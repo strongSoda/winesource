@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { SignupWrapper } from './Signup.styles';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
-import { Redirect, useHistory } from 'react-router';
 import * as Yup from 'yup';
 import "yup-phone";
 import { registerUser } from 'features/counter/userSlice';
 import ROUTES from 'global/constants/routes';
+import { useHistory } from 'react-router-dom';
 
 declare interface ISignupProps {}
 
 const Signup: React.FC = (props: ISignupProps) => {
   const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
-  const loggedin =useAppSelector(state => state.user.loggedin)
   const [loading, setLoading] = useState(false)
-
+  const history = useHistory()
+  
   const formik = useFormik({
         initialValues: {
             email: '',
@@ -51,11 +51,18 @@ const Signup: React.FC = (props: ISignupProps) => {
         }),
 
         onSubmit: async values => {
+          setCustomError('')
           setLoading(true)
-          const response = await dispatch(registerUser(values))
-          console.log('heyoooooooooooooooo',response);
-          if (response.payload.status === 'FAILURE') {
-            setCustomError(response.payload.message)
+          try {
+            const response = await dispatch(registerUser(values))
+            if (response?.payload?.status === 'FAILURE') {
+              setCustomError(response.payload.message)
+              setLoading(false)
+              return
+            }
+            history.push(ROUTES.VERIFY_OTP)
+          }
+          catch (e) {
             setLoading(false)
           }
         },
@@ -63,9 +70,6 @@ const Signup: React.FC = (props: ISignupProps) => {
   
   return (
     <SignupWrapper data-testid="Signup">
-        {!loggedin ? 
-      <>
-
       <div className="form__wrapper">
         <header>
           <h3 className="brand">wine source</h3>
@@ -197,10 +201,6 @@ const Signup: React.FC = (props: ISignupProps) => {
         <h1>Welcome to WineSource</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio, error ratione saepe provident fugit nam dolorum temporibus iusto, id quas quo assumenda minus facere perspiciatis quaerat minima modi cum!</p>
       </div>
-        </>
-        : 
-        <Redirect to={ROUTES.DISCOVER}/>
-        }
     </SignupWrapper>
   )
 };

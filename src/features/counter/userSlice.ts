@@ -37,10 +37,11 @@ export const registerUser = createAsyncThunk(
     console.log(data);
 
     if(data.status==='FAILURE') return data
-    
-    thunkAPI.dispatch(setUser(data.user))
-    thunkAPI.dispatch(setToken(data.auth_token))
+
+    thunkAPI.dispatch(setUser(data.body.user))
+    thunkAPI.dispatch(setToken(data.body.auth_token))
     thunkAPI.dispatch(login())
+    return data
   }
 )
 
@@ -57,10 +58,10 @@ export const loginUser = createAsyncThunk(
     
     if(data.status==='FAILURE') return data
 
-    thunkAPI.dispatch(setUser(data.user))
-    thunkAPI.dispatch(setToken(data.auth_token))
+    thunkAPI.dispatch(setUser(data.body.user))
+    thunkAPI.dispatch(setToken(data.body.auth_token))
     thunkAPI.dispatch(login())
-  }
+    return data  }
 )
 
 // async thunk
