@@ -31,7 +31,7 @@ const AppRouterSwitch: React.FC = () => {
         <Route exact path="/counter" component={Counter} />
         <Route exact path={ROUTES.HOME} component={Home} />
         <Route path={ROUTES.NOT_FOUND} component={NotFoundPage} />
-        <Route path={ROUTES.VERIFY_OTP} component={Otp} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.VERIFY_OTP} component={Otp} />
 
         <Route path={ROUTES.USER_SIGNUP} component={Register} />
         <Route exact path={ROUTES.USER_LOGIN} component={Signin} />
