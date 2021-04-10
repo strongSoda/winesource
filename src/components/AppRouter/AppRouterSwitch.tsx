@@ -16,8 +16,14 @@ import AdminSignup from 'pages/Seller/Signup/Register.lazy';
 import AdminLogin from 'pages/Seller/Signin/Signin.lazy';
 import Dashboard from 'pages/Seller/Dashboard/Dashboard.lazy';
 import Otp from 'pages/Otp/Otp.lazy';
+import BuyerAuthenticatedRoute from 'components/BuyerAuthenticatedRoute';
+import { useAppSelector } from 'hooks/storeHooks';
+import SellerAuthenticatedRoute from 'components/SellerAuthenticatedRoute';
 
 const AppRouterSwitch: React.FC = () => {
+  const loggedin = useAppSelector(state => state.user.loggedin)
+  const isAdmin = useAppSelector(state => state.user?.profile?.isAdmin)
+
   usePageViews();
   return (
     <div>
@@ -27,13 +33,13 @@ const AppRouterSwitch: React.FC = () => {
         <Route path={ROUTES.NOT_FOUND} component={NotFoundPage} />
         <Route path={ROUTES.VERIFY_OTP} component={Otp} />
 
-        <Route exact path={ROUTES.USER_SIGNUP} component={Register} />
+        <Route path={ROUTES.USER_SIGNUP} component={Register} />
         <Route exact path={ROUTES.USER_LOGIN} component={Signin} />
-        <Route exact path={ROUTES.DISCOVER} component={Discovery} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.DISCOVER} component={Discovery} />
 
         <Route exact path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
         <Route exact path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
-        <Route exact path={ROUTES.ADMIN_DASHBOARD} component={Dashboard} />
+        <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_DASHBOARD} component={Dashboard} />
 
         <Redirect to={ROUTES.NOT_FOUND} />
       </Switch>
