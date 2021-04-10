@@ -26,7 +26,7 @@
       "path": "src/pages",
       "withTest": true,
       "withStory": false,
-      "withLazy": false
+      "withLazy": true
     }
   }
 }

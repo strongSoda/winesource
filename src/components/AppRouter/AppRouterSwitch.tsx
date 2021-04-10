@@ -3,15 +3,18 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import usePageViews from 'hooks/usePageViews';
-import Counter from 'pages/counter';
-import Home from 'pages/home';
-import NotFoundPage from 'pages/notfound';
-import Register from 'pages/signup';
-import Discovery from 'pages/discover';
-import Signin from 'pages/signin';
-import AdminSignup from 'components/AdminSignup';
-import AdminLogin from 'components/AdminLogin';
+
 import ROUTES from 'global/constants/routes';
+
+import Counter from 'pages/counter';
+import Home from 'pages/Home/Home.lazy';
+import NotFoundPage from 'pages/NotFound/NotFound.lazy';
+import Register from 'pages/Buyer/Signup/Register.lazy';
+import Discovery from 'pages/Buyer/Discover/Discover.lazy';
+import Signin from 'pages/Buyer/Signin/Signin.lazy';
+import AdminSignup from 'pages/Seller/Signup/Register.lazy';
+import AdminLogin from 'pages/Seller/Signin/Signin.lazy';
+import Dashboard from 'pages/Seller/Dashboard/Dashboard.lazy';
 
 const AppRouterSwitch: React.FC = () => {
   usePageViews();
@@ -25,6 +28,7 @@ const AppRouterSwitch: React.FC = () => {
         <Route exact path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
         <Route exact path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
         <Route exact path={ROUTES.DISCOVER} component={Discovery} />
+        <Route exact path={ROUTES.ADMIN_DASHBOARD} component={Dashboard} />
         <Route path={ROUTES.NOT_FOUND} component={NotFoundPage} />
         <Redirect to={ROUTES.NOT_FOUND} />
       </Switch>
