@@ -1,3 +1,4 @@
+import CSSVARIABLES from 'global/constants/css/variables';
 import { createGlobalStyle, css } from 'styled-components';
 
 const globalStyle = createGlobalStyle`
@@ -11,10 +12,10 @@ ${({ theme }) => css`
     width: 100vw;
     height: 100vh;
     background: ${theme.backgroundColor};
-    font-family: 'Poppins', sans-serif;
+    font-family: ${CSSVARIABLES.primaryFontFamily}
   }
   a {
-    color: #8a1f1a;
+    color: ${CSSVARIABLES.secondaryColor};
   }
 `}
 `;

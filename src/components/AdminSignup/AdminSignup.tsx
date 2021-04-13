@@ -224,7 +224,7 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
               value={formik.values.password}
               placeholder="Password" /><br/>
           <input type="submit" value={loading ? "loading..." : "Sign Up"} />
-        <p>Already have an account? <a href="/signin">Sign In!</a></p>
+        <p>Already have an account? <a href={ROUTES.ADMIN_LOGIN}>Sign In!</a></p>
         </form >
       </div>
       <div className="banner">

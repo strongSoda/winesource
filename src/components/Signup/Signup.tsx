@@ -24,6 +24,8 @@ const Signup: React.FC = (props: ISignupProps) => {
   const [lng, setLng] = useState<number>(0)
   
   const setUserAddress = (address: string, lat: number, lng: number, city: string, state: string, country: string ) => {
+    // console.log(address, lat, lng, city, state, country);
+    
     setAddress(address)
     setLat(lat)
     setLng(lng)
@@ -104,11 +106,11 @@ const Signup: React.FC = (props: ISignupProps) => {
   
   return (
     <SignupWrapper data-testid="Signup">
-      <div className="form__wrapper">
         <header>
           <h3 className="brand">wine source</h3>
               <a href={ROUTES.USER_LOGIN}><button className="login_btn">log in</button></a>
         </header>
+      <div className="form__wrapper">
         <form onSubmit={formik.handleSubmit}>
         <h2>Create an account</h2>
           {
@@ -217,12 +219,13 @@ const Signup: React.FC = (props: ISignupProps) => {
 
           <br/>
 
+      
           {
             formik.touched.password && formik.errors.password ? (
               <div>{formik.errors.password}</div>
             ) : null
           }
-
+      
           <input
               type="password"
               name="password"
@@ -232,7 +235,7 @@ const Signup: React.FC = (props: ISignupProps) => {
               value={formik.values.password}
               placeholder="Password" /><br/>
           <input type="submit" value={loading ? "loading..." : "Sign Up"} />
-        <p>Already have an account? <a href="/signin">Sign In!</a></p>
+        <p>Already have an account? <a href={ROUTES.USER_LOGIN}>Sign In!</a></p>
         </form >
       </div>
       <div className="banner">
