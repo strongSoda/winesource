@@ -19,6 +19,7 @@ import Otp from 'pages/Otp/Otp.lazy';
 import BuyerAuthenticatedRoute from 'components/BuyerAuthenticatedRoute';
 import { useAppSelector } from 'hooks/storeHooks';
 import SellerAuthenticatedRoute from 'components/SellerAuthenticatedRoute';
+import PriceCheck from 'components/PriceCheck';
 
 const AppRouterSwitch: React.FC = () => {
   const loggedin = useAppSelector(state => state.user.loggedin)
@@ -39,6 +40,7 @@ const AppRouterSwitch: React.FC = () => {
 
         <Route exact path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
         <Route exact path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
+        <Route exact path='/pricecheck' component={PriceCheck} />
         <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_DASHBOARD} component={Dashboard} />
 
         <Redirect to={ROUTES.NOT_FOUND} />
