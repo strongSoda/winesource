@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import "yup-phone";
 import { registerUser } from 'features/counter/userSlice';
 import ROUTES from 'global/constants/routes';
+import AddressSearch from 'components/AddressSearch';
 
 
 declare interface IAdminSignupProps {}
@@ -16,17 +17,38 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
     const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
-
+  const [address, setAddress] = useState<string>('')
+  const [city, setCity] = useState<string>('')
+  const [astate, setAState] = useState<string>('')
+  const [country, setCountry] = useState<string>('')
+  const [lat, setLat] = useState<number>(0)
+  const [lng, setLng] = useState<number>(0)
+  
+  const setUserAddress = (address: string, lat: number, lng: number, city: string, state: string, country: string ) => {
+    setAddress(address)
+    setLat(lat)
+    setLng(lng)
+    setCity(city)
+    setAState(state)
+    setCountry(country)
+  }
+  
   const formik = useFormik({
         initialValues: {
-            email: '',
-            fname: '',
-            lname: '',
-            password: '',
-            username: '',
-            dob: '',
-            phone: '',
-            is_admin: true
+          email: '',
+          fname: '',
+          lname: '',
+          password: '',
+          username: '',
+          dob: '',
+          phone: '',
+          is_admin: true,
+          address: address,
+          lat: lat,
+          lng: lng,
+          city: city,
+          astate: astate,
+          country: country
         },
         validationSchema: Yup.object({
           username: Yup.string()
@@ -174,6 +196,10 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
           
           <br />
 
+            <AddressSearch setUserAddress={setUserAddress}/>
+
+          <br />
+          
           {
             formik.touched.password && formik.errors.password ? (
               <div>{formik.errors.password}</div>
