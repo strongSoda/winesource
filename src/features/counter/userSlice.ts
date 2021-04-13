@@ -7,14 +7,20 @@ import ENDPOINTS from 'global/constants/endpoints';
 import METHODS from 'global/constants/restMethods';
 
 interface registerProps {
-    fname: string,
-    lname: string,
-    email: string,
-    dob: string,
-    phone: string,
-    username: string,
-    password: string,
-    admin?: boolean
+  fname: string,
+  lname: string,
+  email: string,
+  dob: string,
+  phone: string,
+  username: string,
+  password: string,
+  admin?: boolean,
+  address: string,
+  lat: number,
+  lng: number,
+  city: string,
+  astate: string,
+  country: string
 }
 
 interface loginProps {

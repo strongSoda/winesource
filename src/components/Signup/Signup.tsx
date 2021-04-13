@@ -7,6 +7,7 @@ import "yup-phone";
 import { registerUser } from 'features/counter/userSlice';
 import ROUTES from 'global/constants/routes';
 import { useHistory } from 'react-router-dom';
+import AddressSearch from 'components/AddressSearch';
 
 declare interface ISignupProps {}
 
@@ -15,7 +16,22 @@ const Signup: React.FC = (props: ISignupProps) => {
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const [address, setAddress] = useState<string>('')
+  const [city, setCity] = useState<string>('')
+  const [astate, setAState] = useState<string>('')
+  const [country, setCountry] = useState<string>('')
+  const [lat, setLat] = useState<number>(0)
+  const [lng, setLng] = useState<number>(0)
   
+  const setUserAddress = (address: string, lat: number, lng: number, city: string, state: string, country: string ) => {
+    setAddress(address)
+    setLat(lat)
+    setLng(lng)
+    setCity(city)
+    setAState(state)
+    setCountry(country)
+  }
+
   const formik = useFormik({
         initialValues: {
             email: '',
@@ -25,6 +41,12 @@ const Signup: React.FC = (props: ISignupProps) => {
             username: '',
             dob: '',
             phone: '',
+            address: address,
+            lat: lat,
+      lng: lng,
+                      city: city,
+          astate: astate,
+          country: country
         },
         validationSchema: Yup.object({
           username: Yup.string()
@@ -50,8 +72,20 @@ const Signup: React.FC = (props: ISignupProps) => {
             .required()
         }),
 
-        onSubmit: async values => {
-          setCustomError('')
+    onSubmit: async values => {
+      if (!address || !lat || !lng) {
+        setCustomError('Please enter your address.')
+        return
+      }
+
+      values.address = address
+      values.astate = astate
+      values.city = city
+      values.country = country
+      values.lat = lat
+      values.lng = lng
+
+      setCustomError('')
           setLoading(true)
           try {
             const response = await dispatch(registerUser(values))
@@ -178,6 +212,10 @@ const Signup: React.FC = (props: ISignupProps) => {
             placeholder="Phone Number" />
           
           <br />
+
+          <AddressSearch setUserAddress={setUserAddress}/>
+
+          <br/>
 
           {
             formik.touched.password && formik.errors.password ? (
