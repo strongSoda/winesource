@@ -20,10 +20,12 @@ import BuyerAuthenticatedRoute from 'components/BuyerAuthenticatedRoute';
 import { useAppSelector } from 'hooks/storeHooks';
 import SellerAuthenticatedRoute from 'components/SellerAuthenticatedRoute';
 import PriceCheck from 'components/PriceCheck';
+import SellerUnAuthenticatedRoute from 'components/SellerUnAuthenticatedRoute';
+import BuyerUnAuthenticatedRoute from 'components/BuyerUnAuthenticatedRoute';
 
 const AppRouterSwitch: React.FC = () => {
   const loggedin = useAppSelector(state => state.user.loggedin)
-  const isAdmin = useAppSelector(state => state.user?.profile?.isAdmin)
+  const isAdmin = useAppSelector(state => state.user?.profile?.is_admin)
 
   usePageViews();
   return (
@@ -34,12 +36,12 @@ const AppRouterSwitch: React.FC = () => {
         <Route path={ROUTES.NOT_FOUND} component={NotFoundPage} />
         <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.VERIFY_OTP} component={Otp} />
 
-        <Route path={ROUTES.USER_SIGNUP} component={Register} />
-        <Route exact path={ROUTES.USER_LOGIN} component={Signin} />
+        <BuyerUnAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.USER_SIGNUP} component={Register} />
+        <BuyerUnAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.USER_LOGIN} component={Signin} />
         <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.DISCOVER} component={Discovery} />
 
-        <Route exact path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
-        <Route exact path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
+        <SellerUnAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
+        <SellerUnAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
         <Route exact path='/pricecheck' component={PriceCheck} />
         <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_DASHBOARD} component={Dashboard} />
 

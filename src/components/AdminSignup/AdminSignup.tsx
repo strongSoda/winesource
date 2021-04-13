@@ -9,13 +9,16 @@ import "yup-phone";
 import { registerUser } from 'features/counter/userSlice';
 import ROUTES from 'global/constants/routes';
 import AddressSearch from 'components/AddressSearch';
+import { useHistory } from 'react-router';
 
 
 declare interface IAdminSignupProps {}
 
 const AdminSignup: React.FC = (props: IAdminSignupProps) => {
-    const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
+  const history = useHistory()
+  
+  const [Error, setCustomError] = useState('')
   const [loading, setLoading] = useState(false)
   const [address, setAddress] = useState<string>('')
   const [city, setCity] = useState<string>('')
@@ -76,10 +79,16 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
 
         onSubmit: async values => {
           setLoading(true)
-          const response = await dispatch(registerUser(values))
-          console.log('heyoooooooooooooooo',response);
-          if (response.payload.status === 'FAILURE') {
-            setCustomError(response.payload.message)
+          try {
+            const response = await dispatch(registerUser(values))
+            if (response?.payload?.status === 'FAILURE') {
+              setCustomError(response.payload.message)
+              setLoading(false)
+              return
+            }
+            history.push(ROUTES.VERIFY_OTP)
+          }
+          catch (e) {
             setLoading(false)
           }
         },

@@ -16,18 +16,12 @@ const Discover: React.FC = (props: IDiscoverProps) => {
   const profile = useAppSelector(state => state.user.profile)
   return (
     <DiscoverWrapper data-testid="Discover">
-      {loggedin  ?
-      <>
-          <button onClick={() => dispatch(logoutUser())}>Logout</button>
-          <h3>Username: {profile?.username}</h3>
-          <p>Email: {profile?.email}</p>
-          <p>Name: {profile?.fname} {profile?.lname}</p>
-          <p>Date of birth: {profile?.dob}</p>
-          <p>Phone: {profile?.phone}</p>
-      </>
-        :
-        <Redirect to={ROUTES.USER_LOGIN}/>
-      }
+      <button onClick={() => dispatch(logoutUser())}>Logout</button>
+      <h3>Username: {profile?.username}</h3>
+      <p>Email: {profile?.email}</p>
+      <p>Name: {profile?.fname} {profile?.lname}</p>
+      <p>Date of birth: {profile?.dob}</p>
+      <p>Phone: {profile?.phone}</p>
     </DiscoverWrapper>
   )
 };

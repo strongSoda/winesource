@@ -12,7 +12,6 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
 
   return (
     <PriceCheckWrapper data-testid="PriceCheck">
-      
       <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
       <button onClick={check}>Check</button>    
     </PriceCheckWrapper>
