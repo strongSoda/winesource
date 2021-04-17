@@ -24,7 +24,7 @@ const SellerUnAuthenticatedRoute: React.FC<IAuthenticatedRouteProps> = (props: I
         {...componentProps}
         render={() =>
           isAuthenticated && isAdmin === 'True'
-            ? <Redirect to={ROUTES.ADMIN_DASHBOARD} />
+            ? <Redirect to={ROUTES.ADMIN_HOME} />
             : <C {...props} {...componentProps} />}
       />
     </SellerUnAuthenticatedRouteWrapper>

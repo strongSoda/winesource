@@ -7,7 +7,7 @@ import { AuthenticatedRouteWrapper } from './SellerAuthenticatedRoute.styles';
 declare interface IAuthenticatedRouteProps {
   component: React.FC,
   isAuthenticated: boolean,
-  isAdmin: boolean,
+  isAdmin: string,
   componentProps?: any,
   path: string
 }
@@ -23,7 +23,7 @@ const SellerAuthenticatedRoute: React.FC<IAuthenticatedRouteProps> = (props: IAu
       <Route
         {...componentProps}
         render={() =>
-          isAuthenticated && isAdmin
+          isAuthenticated && (isAdmin === 'True')
             ? <C {...props} {...componentProps} />
             : <Redirect to={ROUTES.ADMIN_LOGIN} />}
       />
