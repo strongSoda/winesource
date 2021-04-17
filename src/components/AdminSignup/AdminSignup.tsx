@@ -86,7 +86,7 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
               setLoading(false)
               return
             }
-            history.push(ROUTES.VERIFY_OTP)
+            history.push(ROUTES.ADMIN_VERIFY_OTP)
           }
           catch (e) {
             setLoading(false)
