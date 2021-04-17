@@ -85,57 +85,8 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
             value={formik.values.username}
             placeholder="Username" />
           
-          <br />
-          
-          {
-            formik.touched.fname && formik.errors.fname ? (
-                <div>{formik.errors.fname}</div>
-            ) : null
-          }
-
-          <input
-              type="text"
-              name="fname"
-              id="fname"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.fname}
-              placeholder="First Name" />
-          <br />
-          
-          {
-            formik.touched.lname && formik.errors.lname ? (
-              <div>{formik.errors.lname}</div>
-            ) : null
-          }
-
-          <input
-              type="text"
-              name="lname"
-              id="lname"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.lname}
-              placeholder="Last Name" />
-          
-          <br />
-          
-          {
-            formik.touched.dob && formik.errors.dob ? (
-              <div>{formik.errors.dob}</div>
-            ) : null
-          }
-
-          <input
-            type="text" onFocus={(e) => e.target.type = 'date'} onBlurCapture={(e) => e.target.type = 'text'}
-              name="dob"
-              id="dob"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.dob}
-              placeholder="Date of Birth" />
-          
-          <br /> */}
+          <br />          
+ */}
           
               <div>{Error}</div>
               
@@ -155,39 +106,6 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
                 placeholder="Email Address" />
           
               <br />
-              {/*           
-                 
-          {
-            formik.touched.phone && formik.errors.phone ? (
-              <div>{formik.errors.phone}</div>
-            ) : null
-          }
-
-          <input
-              type="tel"
-              name="phone"
-              id="phone"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-            placeholder="Phone Number" />
-          
-          <br />   {
-            formik.touched.phone && formik.errors.phone ? (
-              <div>{formik.errors.phone}</div>
-            ) : null
-          }
-
-          <input
-              type="tel"
-              name="phone"
-              id="phone"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-            placeholder="Phone Number" />
-          
-          <br /> */}
 
               {
                 formik.touched.password && formik.errors.password ? (
@@ -204,7 +122,7 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
                 value={formik.values.password}
                 placeholder="Password" /><br />
               <input type="submit" value={loading ? "loading..." : "Log In"} />
-              <p>Don't have an account? <a href="/signup">Sign Up!</a></p>
+              <p>Don't have an account? <a href={ROUTES.ADMIN_SIGNUP}>Sign Up!</a></p>
             </form >
           </div>
           <div className="banner">
