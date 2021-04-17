@@ -9,6 +9,10 @@ const ROUTES = {
     ADMIN_DASHBOARD: "/admin/dashboard",
     PROFILE: "/profile",
     VERIFY_OTP: "/otp/verify",
+    ADMIN_VERIFY_OTP: '/admin/otp/verify',
+    ADMIN_INVENTORY: '/admin/inventory',
+    ADMIN_PROFILE: '/admin/profile',
+    ADMIN_HOME: '/admin/home'
 }
 
 export default ROUTES
