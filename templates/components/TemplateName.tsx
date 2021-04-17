@@ -4,10 +4,12 @@ import { TemplateNameWrapper } from './TemplateName.styles';
 
 declare interface ITemplateNameProps {}
 
-const TemplateName: React.FC = (props: ITemplateNameProps) => (
-  <TemplateNameWrapper data-testid="TemplateName">
-    <span>TemplateName Component</span>
-  </TemplateNameWrapper>
-);
+const TemplateName: React.FC = (props: ITemplateNameProps) => {
+  return (
+    <TemplateNameWrapper data-testid="TemplateName">
+      <span>TemplateName Component</span>
+    </TemplateNameWrapper>
+  )
+};
 
 export default TemplateName;
