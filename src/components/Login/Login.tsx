@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useAppDispatch } from 'hooks/storeHooks';
 import * as Yup from 'yup';
 import "yup-phone";
-import { loginUser } from 'features/counter/userSlice';
+import { loginUser } from 'features/userSlice';
 
 import { LoginWrapper } from './Login.styles';
 import ROUTES from 'global/constants/routes';
