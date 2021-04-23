@@ -22,7 +22,7 @@ const Searchview: React.FC<ISearchviewProps> = (props: ISearchviewProps) => {
       <a href={ROUTES.USER_CUSTOM_REQUEST}><Button text="Send custom request" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground}/></a>
       {props.rows?.length ?
         <section className="search_result">
-          <h1><FontAwesomeIcon className="icon__back" icon={faArrowLeft} onClick={() => props.setSearchView(false)} /> Search Result: </h1>
+          <h1 onClick={() => props.setSearchView(false)}><FontAwesomeIcon className="icon__back" icon={faArrowLeft} /> Search Result: </h1>
           <section className="wines">
             {props.rows.map(row => (
               <div className="wine" key={row.id} onClick={() => history.push(ROUTES.PRODUCT + '/' + row.id)}>
