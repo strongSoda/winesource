@@ -8,14 +8,16 @@ import { useFormik } from 'formik';
 import { useAppDispatch } from 'hooks/storeHooks';
 import * as Yup from 'yup';
 import "yup-phone";
-import { loginUser } from 'features/counter/userSlice';
+import { loginUser } from 'features/userSlice';
 import ROUTES from 'global/constants/routes';
+import { useHistory } from 'react-router';
 
 
 const AdminLogin: React.FC = (props: IAdminLoginProps) => {
   const [Error, setCustomError] = useState('')
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
   const formik = useFormik({
     initialValues: {
@@ -52,12 +54,19 @@ const AdminLogin: React.FC = (props: IAdminLoginProps) => {
     }),
 
     onSubmit: async values => {
-      setLoading(true)
-      const response = await dispatch(loginUser(values))
-      console.log('heyoooooooooooooooo', response);
-      if (response.payload.status === 'FAILURE') {
-        setCustomError(response.payload.message)
-        setLoading(false)
+          setCustomError('')
+          setLoading(true)
+          try {
+            const response = await dispatch(loginUser(values))
+            if (response?.payload?.status === 'FAILURE') {
+              setCustomError(response.payload.message)
+              setLoading(false)
+              return
+            }
+            history.push(ROUTES.ADMIN_HOME)
+          }
+          catch (e) {
+            setLoading(false)
       }
     },
   });
