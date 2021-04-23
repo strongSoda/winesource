@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { useAppDispatch } from 'hooks/storeHooks';
 import * as Yup from 'yup';
 import "yup-phone";
-import { registerUser } from 'features/counter/userSlice';
+import { registerUser } from 'features/userSlice';
 import ROUTES from 'global/constants/routes';
 import AddressSearch from 'components/AddressSearch';
 import { useHistory } from 'react-router';
@@ -26,14 +26,21 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
   const [country, setCountry] = useState<string>('')
   const [lat, setLat] = useState<number>(0)
   const [lng, setLng] = useState<number>(0)
+    const [line1, setLine1] = useState<string>('')
+  const [line2, setLine2] = useState<string>('')
+  const [zip, setZip] = useState<string>('')
   
-  const setUserAddress = (address: string, lat: number, lng: number, city: string, state: string, country: string ) => {
-    setAddress(address)
+  const setUserAddress = (line1: string, line2: string, lat: number, lng: number, city: string, state: string, country: string, zip: string ) => {
+    // console.log(address, lat, lng, city, state, country);
+    
+    setLine1(line1)
+    setLine2(line1)
     setLat(lat)
     setLng(lng)
     setCity(city)
     setAState(state)
     setCountry(country)
+    setZip(line1)
   }
   
   const formik = useFormik({
@@ -46,7 +53,9 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
           dob: '',
           phone: '',
           is_admin: true,
-          address: address,
+            line1: line1,
+            line2: line2,
+            zip: zip,
           lat: lat,
           lng: lng,
           city: city,
@@ -77,7 +86,23 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
             .required()
         }),
 
-        onSubmit: async values => {
+    onSubmit: async values => {
+                if (!address || !lat || !lng) {
+        setCustomError('Please enter your address.')
+        return
+      }
+
+      values.line1 = line1
+      values.line2 = line2
+      values.zip = zip
+      values.astate = astate
+      values.city = city
+      values.country = country
+      values.lat = lat
+      values.lng = lng
+
+      setCustomError('')
+      
           setLoading(true)
           try {
             const response = await dispatch(registerUser(values))
@@ -205,7 +230,7 @@ const AdminSignup: React.FC = (props: IAdminSignupProps) => {
           
           <br />
 
-            <AddressSearch setUserAddress={setUserAddress}/>
+          <AddressSearch setUserAddress={setUserAddress} setAddress={setAddress}/>
 
           <br />
           
