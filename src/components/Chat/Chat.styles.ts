@@ -13,7 +13,8 @@ const ChatWrapper = styled.div<Props>`
     bottom: 0;
     width: 20vw;
     background: ${CSSVARIABLES.primaryBackground};
-    box-shadow: -10px 0px 10px 1px ${CSSVARIABLES.primaryBackgroundDark};
+    box-shadow: -5px 2px 5px 1px ${CSSVARIABLES.primaryBackgroundDark};
+    z-index: 10;
     
     header, .chat__input {
         background-color: ${CSSVARIABLES.primaryBackgroundDark};
