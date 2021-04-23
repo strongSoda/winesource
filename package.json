@@ -11,6 +11,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@reduxjs/toolkit": "^1.5.1",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.13.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -31,6 +33,7 @@
     "ag-grid-react": "^25.1.0",
     "classnames": "^2.2.6",
     "coveralls": "^3.1.0",
+    "crypto-js": "^4.0.0",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.1.0",
@@ -47,9 +50,11 @@
     "history": "^5.0.0",
     "husky": "^5.2.0",
     "jest-styled-components": "^7.0.3",
+    "moment": "^2.29.1",
     "prettier": "^2.2.1",
     "prettier-eslint": "^12.0.0",
     "react": "^17.0.2",
+    "react-aws-s3-typescript": "^1.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^1.0.9",
@@ -86,5 +91,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "browser": {
+    "crypto": false
   }
 }
