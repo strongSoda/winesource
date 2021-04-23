@@ -14,6 +14,7 @@ const navTheme = {
     mainColor: CSSVARIABLES.secondaryColor,
     backgroundColor: CSSVARIABLES.primaryBackground,
     height: '6vh',
+    menuBgColor: '#fff'
 }
 
 const leftLinks = (
@@ -52,12 +53,22 @@ const CustomNavbar: React.FC = (props: INavbarProps) => {
   })()
 
 
+  const requestsLink = (() => {
+    if (profile?.is_admin === 'True') {
+      return ROUTES.ADMIN_REQUESTS
+      } else {
+        return ROUTES.BUYER_REQUESTS
+    }
+  })()
+
   const navBrand = <a href={navBrandLink} className = "brand" >WINE SOURCE</a>
 
   const rightLinks = (() => {
     if (profile?.is_admin === 'True') {
       return (
         <>
+          <a href={ROUTES.SELLER_ORDERS}>Orders</a>
+          <a href={requestsLink}>Custom Requests</a>
           <a href={ROUTES.ADMIN_INVENTORY}>Inventory</a>
           <a href={profileLink}>Profile</a>
         </>
@@ -65,7 +76,27 @@ const CustomNavbar: React.FC = (props: INavbarProps) => {
     } else {
       return (
         <>
+          <a href={ROUTES.BUYER_ORDERS}>My Orders</a>
+          <a href={requestsLink}>My Requests</a>
+          <a href={ROUTES.CART}>My Cart</a>
           <a href={profileLink}>Profile</a>
+        </>
+      )
+    }
+  }
+  )()
+
+  const leftLinks = (() => {
+    if (profile?.is_admin === 'True') {
+      return (
+        <>
+          <a href={navBrandLink}>Home</a>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <a href={navBrandLink}>Home</a>
         </>
       )
     }
@@ -81,6 +112,7 @@ const CustomNavbar: React.FC = (props: INavbarProps) => {
         theme={navTheme}
         leftLinks={leftLinks}
         rightLinks={rightLinks}
+        shouldHideOnScroll={false}
       />
     </NavbarWrapper>
   )

@@ -9,6 +9,12 @@ const NavbarWrapper = styled.div`
         text-transform: uppercase;
         font-weight: 600;
     }
+
+    .burger {
+        /* padding: 1em; */
+        background-color: #fff;
+        padding: 1em !important;
+    }
 `;
 
 export { NavbarWrapper };
