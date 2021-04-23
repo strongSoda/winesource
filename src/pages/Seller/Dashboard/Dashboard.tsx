@@ -1,4 +1,4 @@
-import { logoutUser } from 'features/counter/userSlice';
+import { logoutUser } from 'features/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
 import React from 'react';
 
