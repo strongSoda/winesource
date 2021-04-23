@@ -4,7 +4,7 @@ import { SignupWrapper } from './Signup.styles';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
 import * as Yup from 'yup';
 import "yup-phone";
-import { registerUser } from 'features/counter/userSlice';
+import { registerUser } from 'features/userSlice';
 import ROUTES from 'global/constants/routes';
 import { useHistory } from 'react-router-dom';
 import AddressSearch from 'components/AddressSearch';
@@ -16,22 +16,28 @@ const Signup: React.FC = (props: ISignupProps) => {
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const [address, setAddress] = useState<string>('')
+  const [line1, setLine1] = useState<string>('')
+  const [line2, setLine2] = useState<string>('')
+  const [zip, setZip] = useState<string>('')
   const [city, setCity] = useState<string>('')
   const [astate, setAState] = useState<string>('')
   const [country, setCountry] = useState<string>('')
   const [lat, setLat] = useState<number>(0)
   const [lng, setLng] = useState<number>(0)
+  const [address, setAddress] = useState<string>('')
+
   
-  const setUserAddress = (address: string, lat: number, lng: number, city: string, state: string, country: string ) => {
+  const setUserAddress = (line1: string, line2: string, lat: number, lng: number, city: string, state: string, country: string, zip: string ) => {
     // console.log(address, lat, lng, city, state, country);
     
-    setAddress(address)
+    setLine1(line1)
+    setLine2(line1)
     setLat(lat)
     setLng(lng)
     setCity(city)
     setAState(state)
     setCountry(country)
+    setZip(line1)
   }
 
   const formik = useFormik({
@@ -43,7 +49,9 @@ const Signup: React.FC = (props: ISignupProps) => {
             username: '',
             dob: '',
             phone: '',
-            address: address,
+            line1: line1,
+            line2: line2,
+            zip: zip,
             lat: lat,
       lng: lng,
                       city: city,
@@ -80,7 +88,9 @@ const Signup: React.FC = (props: ISignupProps) => {
         return
       }
 
-      values.address = address
+      values.line1 = line1
+      values.line2 = line2
+      values.zip = zip
       values.astate = astate
       values.city = city
       values.country = country
@@ -215,7 +225,7 @@ const Signup: React.FC = (props: ISignupProps) => {
           
           <br />
 
-          <AddressSearch setUserAddress={setUserAddress}/>
+          <AddressSearch setUserAddress={setUserAddress} setAddress={setAddress}/>
 
           <br/>
 
