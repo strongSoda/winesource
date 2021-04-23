@@ -6,7 +6,20 @@ const ProductWrapper = styled.div`
     /* background-color: blue; */
     .content {
         margin-top: 12vh;
+        margin-bottom: 12vh;
 
+        .success {
+            background-color: ${CSSVARIABLES.successLight};
+            color: ${CSSVARIABLES.successDark};
+            padding: 1em;
+            text-align: center;
+        }
+        .error {
+            background-color: ${CSSVARIABLES.dangerLight};
+            color: ${CSSVARIABLES.dangerDark};
+            text-align: center;
+            padding: 1em;
+        }
         .product {
             display: flex;
             justify-content: space-around;
@@ -44,6 +57,12 @@ const ProductWrapper = styled.div`
                     margin-right: 4px;
                 }
 
+                .cases_input:in-range {
+                    border: 2px solid lightgreen;
+                }
+                .cases_input:out-of-range {
+                    border: 2px solid red;
+                }
                 .cases_input{
                     width: 5%;
                     padding: 1em 1em;
@@ -72,8 +91,10 @@ const ProductWrapper = styled.div`
         .content {
             .product {
                 flex-direction: column;
+                align-items: center;
 
                 .details {
+                    width: 80%;
                     padding: 1em;
                     .cases_input{
                         width: 20%;

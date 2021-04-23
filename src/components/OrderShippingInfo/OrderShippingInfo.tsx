@@ -2,6 +2,7 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AddressSearch from 'components/AddressSearch';
 import Button from 'components/Button';
+import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import { add_shipping_address } from 'features/orderSlice';
 import API from 'global/constants/api';
@@ -110,14 +111,15 @@ const OrderShippingInfo: React.FC = (props: IOrderShippingInfoProps) => {
           <AddressSearch setUserAddress={setUserAddress} setAddress={setAddressString}/>
         </section>
         <section className="actions">
-          <Button text="Cancel" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground2} onClick={() => {
+          <Button text="Back" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground2} onClick={() => {
             window.history.back()
           }} />
           <Button text="Next: Payment Info" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground} onClick={() => {
             history.push(ROUTES.ORDER_PAYMENT_INFO)
           }} />
         </section>
-        </section>
+      </section>
+      <Footer />
     </OrderShippingInfoWrapper>
   )
 };

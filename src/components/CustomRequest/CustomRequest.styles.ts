@@ -18,6 +18,12 @@ const CustomRequestWrapper = styled.div<Props>`
                 padding: 1em;
             }
         `}
+
+        .error {
+            background-color: ${CSSVARIABLES.dangerLight};
+            color: ${CSSVARIABLES.dangerDark};
+            padding: 1em;
+        }
         input {
             margin: 0 auto;
             margin-top: 4vh;

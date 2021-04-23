@@ -44,7 +44,7 @@ const DiscoverWrapper = styled.div`
 
     .content {
         padding-top: 10vh;
-
+        padding-bottom: 10vh;
 
         .category_deals, .daily_deals {
             margin-top: 7vh;
@@ -55,7 +55,7 @@ const DiscoverWrapper = styled.div`
             flex-wrap: wrap;
             justify-content: flex-start;
             gap: 2em;
-            max-width: 60vw;
+            max-width: 60%;
             margin: 0 auto;
 
             .wine {

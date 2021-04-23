@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const BuyerOrdersWrapper = styled.div`
     .content {
         margin-top: 10vh;
+        margin-bottom: 10vh;
         text-align: center;
     
         .requests {

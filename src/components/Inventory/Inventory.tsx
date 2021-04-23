@@ -13,6 +13,7 @@ import { useAppSelector } from 'hooks/storeHooks';
 import Navbar from 'components/Navbar';
 import CSSVARIABLES from 'global/constants/css/variables';
 import Button from 'components/Button';
+import Footer from 'components/Footer';
 
 declare interface IInventoryProps {}
 
@@ -106,6 +107,7 @@ const Inventory: React.FC = (props: IInventoryProps) => {
         <DailyDeals wines={selectedRows}/>
         }
       </section>
+      <Footer />
     </InventoryWrapper>
   )
 };

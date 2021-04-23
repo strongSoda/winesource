@@ -8,6 +8,7 @@ interface Props {
 const OrderPaymentInfoWrapper = styled.div<Props>`
     .content {
         margin-top: 12vh;
+        margin-bottom: 12vh;
         /* background-color: blue; */
         h1 {
             text-align: center;
@@ -16,6 +17,12 @@ const OrderPaymentInfoWrapper = styled.div<Props>`
         .error {
             color: red;
             font-size: .7em;
+            text-align: center;
+        }
+        .custom_error {
+            background-color: ${CSSVARIABLES.dangerLight};
+            color: ${CSSVARIABLES.dangerDark};
+            padding: 1em;
             text-align: center;
         }
         .payment_methods{

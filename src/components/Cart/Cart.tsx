@@ -1,6 +1,7 @@
 import { faMinusSquare, faPlusSquare, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'components/Button';
+import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import { changeNumberOfCases, remove } from 'features/cartSlice';
 import { setOrder } from 'features/orderSlice';
@@ -121,6 +122,7 @@ const Cart: React.FC = (props: ICartProps) => {
             </section>
             : <h1>Cart Empty</h1>}
       </section>
+      <Footer />
     </CartWrapper>
   )
 };

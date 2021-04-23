@@ -15,6 +15,7 @@ import API from 'global/constants/api';
 import ENDPOINTS from 'global/constants/endpoints';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import Footer from 'components/Footer';
 
 declare interface IOrderPaymentInfoProps { }
 
@@ -26,6 +27,7 @@ const OrderPaymentInfo: React.FC = (props: IOrderPaymentInfoProps) => {
   const [showAdd, setShowAdd] = useState<boolean>(false)
   const [Id, setID] = useState<string>('')
   const [Error, setError] = useState<string | undefined>('')
+  const [CustomError, setCustomError] = useState<string | undefined>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [placingOrder, setPlacingOrder] = useState<boolean>(false)
   const history = useHistory()
@@ -42,7 +44,7 @@ const OrderPaymentInfo: React.FC = (props: IOrderPaymentInfoProps) => {
     
     const data = await response.json()
     // console.log(data.body.payment_methods.data);
-    setPaymentMethods(data.body.payment_methods.data)
+    setPaymentMethods(data.body.payment_methods?.data)
     setLoading(false)
   }
 
@@ -54,6 +56,7 @@ const OrderPaymentInfo: React.FC = (props: IOrderPaymentInfoProps) => {
   
   const order = async () => {
     setError('')
+    setCustomError('')
     if (!stripe) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
@@ -61,7 +64,7 @@ const OrderPaymentInfo: React.FC = (props: IOrderPaymentInfoProps) => {
       return;
     }
     if (!Id) {
-        alert('Select a payment method')
+        setCustomError('Select a payment method')
         return
     }
     setPlacingOrder(true)
@@ -110,6 +113,7 @@ const OrderPaymentInfo: React.FC = (props: IOrderPaymentInfoProps) => {
       <section className="content">
         {!loading ? 
           <>
+            {CustomError && <p className="custom_error">{CustomError}!</p>}
             <h1>Select Payment Method</h1>
             {Error && <p className="error">{Error}</p>}
             {!showAdd ?
@@ -153,7 +157,8 @@ const OrderPaymentInfo: React.FC = (props: IOrderPaymentInfoProps) => {
             }
           </>
         : 'loading...'}
-        </section>
+      </section>
+      <Footer />
     </OrderPaymentInfoWrapper>
   )
 };

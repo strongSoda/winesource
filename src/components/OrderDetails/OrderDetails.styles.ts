@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const OrderDetailsWrapper = styled.div`
     .content {
         margin-top: 12vh;
+        margin-bottom: 12vh;
         /* background-color: blue; */
         h1 {
             text-align: center;

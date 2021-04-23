@@ -12,6 +12,7 @@ import API from 'global/constants/api';
 import ENDPOINTS from 'global/constants/endpoints';
 import Searchview from 'components/Searchview';
 import DefaultView from 'components/DefaultView';
+import Footer from 'components/Footer';
 
 declare interface IDiscoverProps {}
 
@@ -75,6 +76,8 @@ const Discover: React.FC = (props: IDiscoverProps) => {
         {searchView ? <Searchview query={query} rows={searchRows} setSearchView={setSearchView}/> : <DefaultView rows={rows}/>}
 
       </section>
+
+      <Footer />
     </DiscoverWrapper>
   )
 };

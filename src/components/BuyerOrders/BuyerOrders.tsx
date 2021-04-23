@@ -11,6 +11,7 @@ import moment from 'moment';
 
 import { BuyerOrdersWrapper } from './BuyerOrders.styles';
 import ROUTES from 'global/constants/routes';
+import Footer from 'components/Footer';
 
 declare interface IBuyerRequestsProps {}
 
@@ -53,7 +54,7 @@ const BuyerOrders: React.FC = (props: IBuyerRequestsProps) => {
 
     const result = await response.json()
     setCancelling(false)
-    alert("Request Cancelled")
+    // alert("Request Cancelled")
     getRequests()
   }
   
@@ -101,6 +102,7 @@ const BuyerOrders: React.FC = (props: IBuyerRequestsProps) => {
         'loading...'
         }
       </section>
+      <Footer />
     </BuyerOrdersWrapper>
   )
 };

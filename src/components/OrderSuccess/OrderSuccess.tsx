@@ -1,4 +1,5 @@
 import Button from 'components/Button';
+import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import CSSVARIABLES from 'global/constants/css/variables';
 import ROUTES from 'global/constants/routes';
@@ -26,6 +27,7 @@ const OrderSuccess: React.FC = (props: IOrderSuccessProps) => {
           <Button text="See Orders" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground} onClick={() => history.push(ROUTES.BUYER_ORDERS)} />
         </section>
       </section>
+      <Footer />
     </OrderSuccessWrapper>
   )
 };

@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PriceCheckWrapper } from './PriceCheck.styles';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import UploadImage from 'components/UploadImage';
+import Footer from 'components/Footer';
 
 declare interface IPriceCheckProps { }
 
@@ -384,7 +385,8 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
           <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="What are you looking for?" />
           <button onClick={check}>Search</button>          
         </section>
-       }
+      }
+      <Footer />
     </PriceCheckWrapper>
   )
 };

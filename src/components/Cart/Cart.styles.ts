@@ -6,6 +6,7 @@ const CartWrapper = styled.div`
     /* background-color: blue; */
     .content {
         margin-top: 12vh;
+        margin-bottom: 12vh;
         
         h1, h2 {
             text-align: center;
@@ -40,10 +41,11 @@ const CartWrapper = styled.div`
             margin: 0 auto;
 
             .summary {
+                z-index: 10;
                 position: fixed;
                 right: 0;
                 background-color: ${CSSVARIABLES.primaryBackground};
-                box-shadow: -5px 0px 5px 1px ${CSSVARIABLES.primaryBackgroundDark};
+                box-shadow: -1px 0px 2px 1px ${CSSVARIABLES.primaryBackgroundDark};
                 padding: 1em;
                 /* display: flex;
                 flex-direction: column; */
@@ -110,7 +112,7 @@ const CartWrapper = styled.div`
 
             .summary {
                 bottom: 0vh;
-                right: 7%;
+                right: auto;
             }
             }
         }

@@ -5,8 +5,20 @@ import styled from 'styled-components';
 const BuyerRequestsWrapper = styled.div`
     .content {
         margin-top: 10vh;
+        margin-bottom: 10vh;
         text-align: center;
     
+        .error {
+            background-color: ${CSSVARIABLES.dangerLight};
+            color: ${CSSVARIABLES.dangerDark};
+            padding: 1em;
+        }
+        .success {
+            background-color: ${CSSVARIABLES.successLight};
+            color: ${CSSVARIABLES.successDark};
+            padding: 1em;
+        }
+            
         .requests {
             display: flex;
             flex-wrap: wrap;

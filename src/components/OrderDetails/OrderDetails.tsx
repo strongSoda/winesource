@@ -12,6 +12,7 @@ import ROUTES from 'global/constants/routes';
 import { OrderDetailsWrapper } from './OrderDetails.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import Footer from 'components/Footer';
 
 declare interface IOrderDetailsProps {}
 
@@ -45,18 +46,18 @@ const OrderDetails: React.FC = (props: IOrderDetailsProps) => {
     
   // }
 
-  const payment = () => {
-    let i: any;
-    for (i in cases) {
-      if (!cases[i] || cases[i]<1 || cases[i]===NaN) {
-        alert('Invalid Number of Cases for wine: ' + order.items[i].product_name)
-        return
-      }
+  // const payment = () => {
+  //   let i: any;
+  //   for (i in cases) {
+  //     if (!cases[i] || cases[i]<1 || cases[i]===NaN) {
+  //       alert('Invalid Number of Cases for wine: ' + order.items[i].product_name)
+  //       return
+  //     }
 
-      dispatch(changeNumberOfCases({ "item_index": i, "num_cases": cases[i] }))
-      history.push(ROUTES.ORDER_PAYMENT_INFO)
-    }
-  }
+  //     dispatch(changeNumberOfCases({ "item_index": i, "num_cases": cases[i] }))
+  //     history.push(ROUTES.ORDER_PAYMENT_INFO)
+  //   }
+  // }
 
   const calcSubtotal = () => {
     let i: any;
@@ -115,6 +116,7 @@ const OrderDetails: React.FC = (props: IOrderDetailsProps) => {
           </section>
         </section>
       </section>
+      <Footer />
     </OrderDetailsWrapper>
   )
 };
