@@ -16,6 +16,11 @@ const ButtonWrapper = styled.button<Props>`
     margin-top: 3vh;
     font-weight: 600;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+        width: 80vw;
+        /* margin: 0 auto; */
+    }
 `;
 
 export { ButtonWrapper };

@@ -8,11 +8,12 @@ declare interface IButtonProps {
   bgColor: string,
   onClick?:
         | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-        | undefined;
+  | undefined,
+  disabled?: boolean
 }
 
 const Button: React.FC<IButtonProps> = (props: IButtonProps) => (
-  <ButtonWrapper bgColor={props.bgColor} color={props.color}>{props.text}</ButtonWrapper>
+  <ButtonWrapper bgColor={props.bgColor} color={props.color} disabled={props?.disabled} onClick={props.onClick}>{props.text}</ButtonWrapper>
 );
 
 export default Button;
