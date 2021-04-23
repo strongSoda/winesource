@@ -11,6 +11,8 @@ const CSSVARIABLES = {
     successLight: "#d4edda",
     successDark: "#155724",
     infoLight: '#d1ecf1',
+    dangerLight: "#f8d7da",
+    dangerDark: "#721c24",
     infoDark: "#0c5460",
 }
 
