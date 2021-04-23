@@ -24,6 +24,18 @@ import SellerUnAuthenticatedRoute from 'components/SellerUnAuthenticatedRoute';
 import BuyerUnAuthenticatedRoute from 'components/BuyerUnAuthenticatedRoute';
 import Inventory from 'components/Inventory';
 import Profile from 'components/Profile';
+import CustomRequest from 'components/CustomRequest';
+import BuyerRequests from 'components/BuyerRequests';
+import SellerRequests from 'components/SellerRequests';
+import Product from 'components/Product';
+import OrderDetails from 'components/OrderDetails';
+import OrderConfirm from 'components/OrderConfirm';
+import OrderPaymentInfo from 'components/OrderPaymentInfo';
+import Cart from 'components/Cart';
+import OrderShippingInfo from 'components/OrderShippingInfo';
+import OrderSuccess from 'components/OrderSuccess';
+import BuyerOrders from 'components/BuyerOrders';
+import SellerOrders from 'components/SellerOrders';
 
 const AppRouterSwitch: React.FC = () => {
   const loggedin = useAppSelector(state => state.user.loggedin)
@@ -42,6 +54,16 @@ const AppRouterSwitch: React.FC = () => {
         <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.VERIFY_OTP} component={Otp} />
         <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.DISCOVER} component={Discovery} />
         <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.PROFILE} component={Profile} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.USER_CUSTOM_REQUEST} component={CustomRequest} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.BUYER_REQUESTS} component={BuyerRequests} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.ORDER_DETAILS} component={OrderDetails} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.ORDER_CONFIRMATION} component={OrderConfirm} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.ORDER_SHIPPING_INFO} component={OrderShippingInfo} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.ORDER_PAYMENT_INFO} component={OrderPaymentInfo} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.ORDER_SUCCESS} component={OrderSuccess} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.BUYER_ORDERS} component={BuyerOrders} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path={ROUTES.CART} component={Cart} />
+        <BuyerAuthenticatedRoute isAuthenticated={loggedin} path='/p/:id' component={Product} />
 
         <SellerUnAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_SIGNUP} component={AdminSignup} />
         <SellerUnAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_LOGIN} component={AdminLogin} />
@@ -50,6 +72,8 @@ const AppRouterSwitch: React.FC = () => {
         <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_INVENTORY} component={Inventory} />
         <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_PROFILE} component={Profile} />
         <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_HOME} component={PriceCheck} />
+        <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.ADMIN_REQUESTS} component={SellerRequests} />
+        <SellerAuthenticatedRoute isAuthenticated={loggedin} isAdmin={isAdmin} path={ROUTES.SELLER_ORDERS} component={SellerOrders} />
 
         <Redirect to={ROUTES.NOT_FOUND} />
       </Switch>
