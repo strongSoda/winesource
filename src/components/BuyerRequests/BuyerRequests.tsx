@@ -11,6 +11,7 @@ import moment from 'moment';
 
 import { BuyerRequestsWrapper } from './BuyerRequests.styles';
 import ROUTES from 'global/constants/routes';
+import Footer from 'components/Footer';
 
 declare interface IBuyerRequestsProps {}
 
@@ -21,6 +22,8 @@ const BuyerRequests: React.FC = (props: IBuyerRequestsProps) => {
   const [requests, setRequests] = useState<any []>([])
   const [custom_request, setRequest] = useState<any>({})
   const [cancelling, setCancelling] = useState<boolean>(false)
+  const [Error, setError] = useState<string>('')
+  const [Success, setSuccess] = useState<string>('')
 
   async function getRequests() {      
     setLoading(true)
@@ -41,6 +44,7 @@ const BuyerRequests: React.FC = (props: IBuyerRequestsProps) => {
   }, [])
   
   const cancel = async (id: number) => {
+    setError('')
     setCancelling(true)
     const response = await fetch(API + ENDPOINTS.BUYER_CANCEL_CUSTOM_REQUEST, {
       method: METHODS.POST,
@@ -52,7 +56,7 @@ const BuyerRequests: React.FC = (props: IBuyerRequestsProps) => {
 
     const result = await response.json()
     setCancelling(false)
-    alert("Request Cancelled")
+    setSuccess("Request Cancelled")
     getRequests()
   }
   
@@ -60,6 +64,8 @@ const BuyerRequests: React.FC = (props: IBuyerRequestsProps) => {
     <BuyerRequestsWrapper data-testid="BuyerRequests">
       <Navbar />
       <section className="content">
+        {Error && <p className="error">{Error}!</p>}
+        {Success && <p className="error">{Success}!</p>}
         <h1>My Requests</h1>
         {!loading ?
         <section className="requests">
@@ -99,6 +105,7 @@ const BuyerRequests: React.FC = (props: IBuyerRequestsProps) => {
         'loading...'
         }
       </section>
+      <Footer />
     </BuyerRequestsWrapper>
   )
 };
