@@ -7,7 +7,11 @@ const CSSVARIABLES = {
     secondaryBackground: "#890004",
     secondaryBackground2: "#000",
     primaryFontFamily: "Montserrat",
-    gray1: "#696969"
+    gray1: "#696969",
+    successLight: "#d4edda",
+    successDark: "#155724",
+    infoLight: '#d1ecf1',
+    infoDark: "#0c5460",
 }
 
 export default CSSVARIABLES
