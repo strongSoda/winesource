@@ -1,6 +1,7 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from 'components/Button';
+import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import { add } from 'features/cartSlice';
 import { cancel, create, setOrder } from 'features/orderSlice';
@@ -27,6 +28,8 @@ const Product: React.FC = (props: IProductProps) => {
   const dispatch = useAppDispatch()
   const history = useHistory()
   const CART = useAppSelector(state => state.cart);
+  const [Success, setSuccess] = useState<string>('')
+  const [Error, setError] = useState<string>('')
 
   useEffect(() => {
               
@@ -50,8 +53,10 @@ const Product: React.FC = (props: IProductProps) => {
   }, [])
   
   const order = () => {
+    setSuccess('')
+    setError('')
     if (!cases) {
-      alert("Order must have at least 1 case.")
+      setError("Order must have at least 1 case")
       return
     }
     dispatch(setOrder({
@@ -71,7 +76,9 @@ const Product: React.FC = (props: IProductProps) => {
     history.push(ROUTES.ORDER_DETAILS)
   }
 
-  const cart = () => {    
+  const cart = () => {
+    setSuccess('')
+    setError('')
     dispatch(add({
         product_id: parseInt(product.id),
         product_name: product.name,
@@ -81,7 +88,7 @@ const Product: React.FC = (props: IProductProps) => {
         winesource_price: parseInt(product.winesource_price),
         seller_id: parseInt(product.seller_id)
     }))
-    alert('Added to Cart!')
+    setSuccess('Added to Cart!')
   }
 
   function isCarted(obj: any, list: any[]) {
@@ -102,6 +109,8 @@ const Product: React.FC = (props: IProductProps) => {
     <ProductWrapper data-testid="Product">
       <Navbar />
       <section className="content">
+        {Success && <p className="success">{Success}!</p>}
+        {Error && <p className="error">{Error}!</p>}
         {!loading ?
           <section className="product">
             <div>
@@ -129,6 +138,7 @@ const Product: React.FC = (props: IProductProps) => {
           </section>
         : 'loading...'}
       </section>
+      <Footer />
     </ProductWrapper>
   )
 };
