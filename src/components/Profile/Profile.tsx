@@ -4,7 +4,7 @@ import { ProfileWrapper } from './Profile.styles';
 
 import { Redirect, useHistory } from 'react-router';
 import { useAppDispatch, useAppSelector } from 'hooks/storeHooks';
-import { logoutUser } from 'features/counter/userSlice';
+import { logoutUser } from 'features/userSlice';
 import ROUTES from 'global/constants/routes';
 import Navbar from 'components/Navbar';
 
