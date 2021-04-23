@@ -17,16 +17,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { PriceCheckWrapper } from './PriceCheck.styles';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import UploadImage from 'components/UploadImage';
 
 declare interface IPriceCheckProps { }
 
 const PriceCheck: React.FC = (props: IPriceCheckProps) => {
   const [query, setQuery] = useState<string>('')
+  const [imgUrl, setImgUrl] = useState<string>('')
   const [ShowInventory, setShowInventory] = useState<boolean>(false)
   const [Error, setCustomError] = useState('')
   const [loading, setLoading] = useState(false)
   const dispatch = useAppDispatch()  
-  const history = useHistory()
   const token = useAppSelector(state => state.user.token)
 
   const check = () => {
@@ -59,7 +60,7 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
             average_price: '',
             winesource_price: '',
             winesource_cost: '',
-            img_url: 'https://asset1.cxnmarksandspencer.com/is/image/mands/wineLP_hero_1200x1200?wid=900&qlt=70&fmt=pjpeg',
+            img_url: '',
         },
         validationSchema: Yup.object({
           name: Yup.string()
@@ -71,7 +72,7 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
           distributor: Yup.string()
               .max(20, 'Must be 20 characters or less')
               .required('Required'),
-          img_url: Yup.string(),
+          img_url: Yup.string().required(),
           vintage: Yup.number()
               .required('Required'),
           case_size: Yup.number()
@@ -91,7 +92,6 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
         }),
 
       onSubmit: async (values: any) => {
-        console.log('kkkkkkkkkkkkkkkkkkkkkkkk');
         
         values.name = query
         setCustomError('')
@@ -123,14 +123,18 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
     });
   
   const submit = async (values: any) => {
-        console.log('kkkkkkkkkkkkkkkkkkkkkkkk', values);
-        
+    console.log(imgUrl);
+    
+    if (!imgUrl) {
+      alert('Product Image Required')
+      return
+    }
     values.name = query
-    values.average_price = (values.total_wine_price + values.vivino_price + values.wine_com_price + values.wine_searcher_price)/4
-        setCustomError('')
+    values.average_price = (values.total_wine_price + values.vivino_price + values.wine_com_price + values.wine_searcher_price) / 4
+    values.img_url = imgUrl
+    setCustomError('')
         setLoading(true)
     try {
-          console.log('hhhhhhhhhhhhhhhhhhhhh', API + ENDPOINTS.PRODUCTS);
           
       const response = await fetch(API + ENDPOINTS.PRODUCTS, {
             method: METHODS.POST,
@@ -168,7 +172,14 @@ const PriceCheck: React.FC = (props: IPriceCheckProps) => {
               
               <div className="form__wrapper">
                 <div className="form_group">
-   
+                
+                  <p>Upload Image</p>
+                  <UploadImage setImgUrl={setImgUrl} dir="inventory"/>
+                </div>
+
+              
+                <div className="form_group">
+                
                   <p>Vivino</p>
             {
                   formik.touched.vivino_price && formik.errors.vivino_price ? (
