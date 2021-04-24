@@ -31,13 +31,13 @@ const Signup: React.FC = (props: ISignupProps) => {
     // console.log(address, lat, lng, city, state, country);
     
     setLine1(line1)
-    setLine2(line1)
+    setLine2(line2)
     setLat(lat)
     setLng(lng)
     setCity(city)
     setAState(state)
     setCountry(country)
-    setZip(line1)
+    setZip(zip)
   }
 
   const formik = useFormik({

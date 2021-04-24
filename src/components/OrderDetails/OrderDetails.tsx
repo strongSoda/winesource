@@ -13,6 +13,9 @@ import { OrderDetailsWrapper } from './OrderDetails.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import Footer from 'components/Footer';
+import API from 'global/constants/api';
+import ENDPOINTS from 'global/constants/endpoints';
+import METHODS from 'global/constants/restMethods';
 
 declare interface IOrderDetailsProps {}
 
@@ -24,6 +27,7 @@ const OrderDetails: React.FC = (props: IOrderDetailsProps) => {
   const cases: any[] = []
   const [subtotal, setSubtotal] = useState<number>(0)
   const shipping_price = 2;
+  const token = useAppSelector(state => state.user.token)
 
   useEffect(() => {
     // let i: any;

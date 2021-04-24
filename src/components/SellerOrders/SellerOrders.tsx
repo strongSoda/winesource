@@ -121,6 +121,7 @@ const SellerOrders: React.FC = (props: IBuyerRequestsProps) => {
                   <p>Date Ordered: <span className="value">{moment(order.date_created).format('MMM DD, YYYY hh:mm a')}</span></p>
                   <p>Cases: <span className="value">{order.number_of_cases}</span></p>
                   <p>Status: <span className="value">{order.status}</span></p>
+                  <p>Shipping Address: <span className="value"><em>{order.line1}, {order.line2}, {order.city}, {order.state}, {order.country}, {order.postal_code}</em></span></p>
                   {(order.status === 'CANCELLED') && order?.admin_cancellation_reason && 
                     <p>Reason: <em>{order.admin_cancellation_reason}</em></p>
                   }

@@ -28,7 +28,8 @@ const ENDPOINTS = {
     BUYER_CUSTOM_REQUEST: '/buyer/requests',
     CHARGE_CUSTOMER: '/charge-customer',
     PAYMENT_METHODS: '/payment-methods',
-    ATTACH_PAYMENT_METHOD :"/payment-method/attach",
+    ATTACH_PAYMENT_METHOD: "/payment-method/attach",
+    PLACE_ORDERS_WITHOUT_STRIPE: '/temp/place/order'
 }
 
 export default ENDPOINTS

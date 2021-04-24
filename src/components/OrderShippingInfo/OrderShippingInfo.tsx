@@ -36,19 +36,20 @@ const OrderShippingInfo: React.FC = (props: IOrderShippingInfoProps) => {
   const [addressString, setAddressString] = useState<any>({})
   const history = useHistory()
   const dispatch = useAppDispatch()
+  const order = useAppSelector(state => state.order)
 
  
   const setUserAddress = (line1: string, line2: string, lat: number, lng: number, city: string, state: string, country: string, zip: string) => {
-    // console.log(address, lat, lng, city, state, country);    
+    console.log(line1, line2, lat, lng, city, state, country, zip);    
     setLine1(line1)
-    setLine2(line1)
+    setLine2(line2)
     setLat(lat)
     setLng(lng)
     setCity(city)
     setAState(state)
     setCountry(country)
-    setZip(line1)
-
+    setZip(zip)
+    
     
     setShippingAddress({
       "line1": line1,
@@ -98,6 +99,22 @@ const OrderShippingInfo: React.FC = (props: IOrderShippingInfoProps) => {
     getAddress()
   }, [])
 
+
+  const placeOrder = async () => {
+    const response = await fetch(API + ENDPOINTS.PLACE_ORDERS_WITHOUT_STRIPE, {
+      method: METHODS.POST,
+      headers: {
+        Authorization: 'Bearer ' + token
+      },
+      body: JSON.stringify({items: order.items, address: order.address})
+    })
+
+    const data = await response.json()
+    if (data.status === 'SUCCESS') {
+      history.push(ROUTES.ORDER_SUCCESS)
+    }
+  }
+  
   return (
     <OrderShippingInfoWrapper data-testid="OrderShippingInfo" shipping={shipping}>
       <Navbar />
@@ -114,9 +131,12 @@ const OrderShippingInfo: React.FC = (props: IOrderShippingInfoProps) => {
           <Button text="Back" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground2} onClick={() => {
             window.history.back()
           }} />
-          <Button text="Next: Payment Info" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground} onClick={() => {
+
+          <Button text="Place Order" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground} onClick={placeOrder} />
+
+          {/* <Button text="Next: Payment Info" color={CSSVARIABLES.primaryColor2} bgColor={CSSVARIABLES.secondaryBackground} onClick={() => {
             history.push(ROUTES.ORDER_PAYMENT_INFO)
-          }} />
+          }} /> */}
         </section>
       </section>
       <Footer />

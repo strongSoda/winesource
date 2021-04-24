@@ -41,7 +41,7 @@ declare interface IAddressSearchProps {
       // console.log(obj);
       for (let key in obj) {
         if (key === 'types') {
-          if (obj.types.includes("street_number")) {
+          if (obj.types.includes("neighborhood")) {
             return obj.long_name
           }
         }
@@ -126,7 +126,7 @@ function handleScriptLoad(updateQuery: any, autoCompleteRef: any, setUserAddress
 
 async function handlePlaceSelect(updateQuery: any, setUserAddress: any, setAddress: any) {
   const addressObject = autoComplete.getPlace();
-  // console.log(addressObject);
+  console.log(addressObject);
   
   const query = addressObject.formatted_address;
   const latLng = addressObject.geometry.location
