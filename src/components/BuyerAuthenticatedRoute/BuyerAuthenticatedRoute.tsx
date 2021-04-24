@@ -15,7 +15,7 @@ declare interface IAuthenticatedRouteProps {
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_51IgB8xJ5aachBmeqao5lSzyv4aHp8zsLEqfdxnOs0XlmLKMHWpHgrslykAAMGN7ilRlC3djzRWPHZ7258bwomACp00KwOkFZ0h');
+const stripePromise = loadStripe('pk_live_51IgB8xJ5aachBmeqWQYYsIQAm5X3D1gmVmIsOFKh7JwpFLn61lboHMom3DtYkkm2RxICF7j0aFmLSpxprXPZlHsU00LXxlMVes');
 
 const BuyerAuthenticatedRoute: React.FC<IAuthenticatedRouteProps> = (props: IAuthenticatedRouteProps) => {
   const C = props.component;
